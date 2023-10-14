@@ -29,3 +29,9 @@ Sistema para clínica médica para a matéria de Web 2 ministrada pelo Professor
 
 ### 6. Importar o Banco de Dados
     Banco de Dados: Importar o banco de dados.
+
+### Vídeo da entrega 2
+
+    Aqui está um vídeo incrível que mostra nosso projeto em ação:
+https://youtu.be/lOR0myKidUY
+
