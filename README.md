@@ -42,4 +42,4 @@ composer global require laravel/installer
 ### Vídeo da entrega 2
 
     Aqui está um vídeo incrível que mostra nosso projeto em ação:
-https://www.youtube.com/embed/lOR0myKidUY
+https://www.youtube.com/lOR0myKidUY
