@@ -89,13 +89,15 @@
                     @endif
                 </td>
                 <td>
-                    <button href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-outline-warning d-flex justify-content-center align-items-center">Editar <i class="fa-regular fa-pen-to-square ml-1"></i></button>
+                    <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-outline-warning d-flex justify-content-center align-items-center">
+                        Editar <i class="fa-regular fa-pen-to-square ml-1"></i>
+                    </a>
                 </td>
                 <td>
                     <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este agendamento?');">
                         @csrf
                         @method('DELETE')
-                        <button  type="submit" class="btn btn-outline-danger d-flex justify-content-center align-items-center">Excluir <i class="fa-regular fa-trash-can ml-1"></i></button>
+                        <button type="submit" class="btn btn-outline-danger d-flex justify-content-center align-items-center">Excluir <i class="fa-regular fa-trash-can ml-1"></i></button>
                     </form>
                 </td>
             </tr>

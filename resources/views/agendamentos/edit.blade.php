@@ -3,9 +3,6 @@
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/0.9.0/jquery.mask.min.js" integrity="sha512-oJCa6FS2+zO3EitUSj+xeiEN9UTr+AjqlBZO58OPadb2RfqwxHpjTU8ckIC8F4nKvom7iru2s8Jwdo+Z8zm0Vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-
 @endsection
 
 @section('content')
@@ -82,7 +79,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-outline-primary mb-3 col-md-12">Atualizar Agendamento <i class="fa-solid fa-floppy-disk"></i></button>
+        <button href="submit" class="btn btn-outline-primary mb-3 col-md-12">Atualizar Agendamento <i class="fa-solid fa-floppy-disk"></i></button>
     </form>
 </div>
 @endsection

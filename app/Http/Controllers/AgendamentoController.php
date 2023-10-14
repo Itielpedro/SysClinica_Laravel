@@ -9,6 +9,7 @@ use App\Models\Medico;
 use App\Models\Consulta;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use PhpParser\NodeVisitor\FindingVisitor;
 
 class AgendamentoController extends Controller
 {
@@ -93,20 +94,30 @@ class AgendamentoController extends Controller
 
     public function update(Request $request, Agendamento $agendamento)
     {
+
         try {
             $horarioSelecionado = $request->input('hora');
 
-            // Verifica se o novo horário está disponível para agendamento
             if ($this->horarioIndisponivel($request->input('data'), $request->input('medico_id'), $request->input('paciente_id'), $horarioSelecionado)) {
                 return redirect()->back()->with('error', 'Horário já agendado. Escolha outro horário.');
             }
 
             $request->validate([
-                'data' => 'required|date|date_format:Y-m-d|after_or_equal:' . now()->format('Y-m-d'),
+                'data' => [
+                    'required',
+                    'date',
+                    'date_format:Y-m-d',
+                    'after_or_equal:' . now()->format('Y-m-d'),
+                    function ($attribute, $value, $fail) {
+                        $dayOfWeek = \Carbon\Carbon::parse($value)->dayOfWeek;
+                        if ($dayOfWeek == 0 || $dayOfWeek == 6) {
+                            $fail('Os agendamentos só são permitidos de segunda a sexta-feira.');
+                        }
+                    },
+                ],
                 'hora' => [
                     'required_if:data,' . now()->format('Y-m-d'),
                     'in:08:00,08:30,09:00,09:30,10:00,10:30,11:00,11:30,12:00,14:00,14:30,15:00,15:30,16:00,16:30,17:00',
-                    'after_or_equal:' . now()->format('H:i'),
                 ],
                 'paciente_id' => 'required|exists:pacientes,id',
                 'medico_id' => 'required|exists:medicos,id',

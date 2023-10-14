@@ -40,7 +40,7 @@
             <button type="submit" class="btn btn-outline-success">Criar Especialidade <i class="fa-solid fa-plus"></i></button>
         </form>
     </div>
-    <ul class="nav nav-tabs" id="especialidadesTabs">
+    <ul class="nav nav-pills nav-fill" id="especialidadesTabs">
         @foreach ($especialidades as $especialidade)
         <li class="nav-item">
             <a class="nav-link" id="especialidade{{$especialidade->id}}" data-toggle="tab" href="#especialidadeTab{{$especialidade->id}}" data-especialidade-id="{{$especialidade->id}}">

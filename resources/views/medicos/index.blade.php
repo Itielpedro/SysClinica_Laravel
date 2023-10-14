@@ -61,7 +61,7 @@
         <tbody>
             @foreach ($medicos as $medico)
             <tr>
-                <td >
+                <td class="col-1">
                     <div>
                     <img src="{{ Storage::url($medico->foto) }}" class="img-fluid card-img-top" alt="Foto" height="90" width="80">
 

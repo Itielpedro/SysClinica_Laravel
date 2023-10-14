@@ -22,14 +22,13 @@
         </div>
         <div class="form-group">
             <label for="valor">Valor:</label>
-            <input type="number" class="form-control" id="valor" name="valor" value="{{ old('valor') }}" required>
+            <input type="text" class="form-control" id="valor" name="valor" value="{{ old('valor') }}" required>
         </div>
         <div class="form-group">
             <label for="observacoes">Observações:</label>
             <textarea class="form-control" id="observacoes" name="observacoes">{{ old('observacoes') }}</textarea>
         </div>
         <button type="submit" class="btn btn-outline-success">Salvar <i class="fa-solid fa-floppy-disk"></i></button>
-
     </form>
 </div>
 @endsection

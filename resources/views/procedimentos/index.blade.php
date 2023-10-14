@@ -22,7 +22,7 @@
         {{ session('error') }}
     </div>
     @endif
-    
+
     @if(isset($termo))
     <p>Pesquisando por: "{{ $termo }}"</p>
     <a href="{{ route('procedimentos.index') }}" class="btn btn-outline-secondary mb-3">Limpar Pesquisa <i class="fa-regular fa-trash-can"></i></a>
@@ -55,7 +55,7 @@
     </div>
 
     @if(!empty($procedimentos) && count($procedimentos) > 0)
-    <table class="table">
+    <table class="table fs-5">
         <thead>
             <tr>
                 <th>Descrição</th>
