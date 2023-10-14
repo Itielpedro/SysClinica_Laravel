@@ -10,7 +10,7 @@ class EspecialidadesController extends Controller
 {
     public function index()
     {
-        $especialidades = Especialidade::all();
+        $especialidades = Especialidade::orderBy('nome')->get();
         return view('especialidades.index', compact('especialidades'));
     }
 
@@ -34,7 +34,7 @@ class EspecialidadesController extends Controller
         return redirect()->route('especialidades.index')->with('success', 'Especialidade criada com sucesso.');
 
     }catch (\Exception $e){
-        return redirect()->back()->with('error', '' . $e->getMessage());
+        return redirect()->back()->with('error', 'Erro ao criar especialidade' . $e->getMessage());
     }
 
     }

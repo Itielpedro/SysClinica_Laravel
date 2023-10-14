@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agendamentos', function (Blueprint $table) {
+        Schema::create('consultas', function (Blueprint $table) {
             $table->increments('id');
             $table->date('data');
             $table->time('hora');
             $table->unsignedInteger('paciente_id');
             $table->unsignedInteger('medico_id');
+            $table->unsignedInteger('agendamento_id')->unique();
             $table->string('tipo_consulta');
             $table->enum('retorno', ['sim', 'nao']);
-            $table->string('status')->default('pendente');
+            $table->string('status')->default('confirmado');
             $table->timestamps();
 
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
-            $table->foreign('medico_id')->references('id')->on('medicos');
+            $table->foreign('agendamento_id')->references('id')->on('agendamentos')->onDelete('cascade');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
+            $table->foreign('medico_id')->references('id')->on('medicos')->onDelete('cascade');
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agendamentos');
+        Schema::dropIfExists('consultas');
     }
 };

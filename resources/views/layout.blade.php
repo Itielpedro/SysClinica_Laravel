@@ -38,13 +38,13 @@
                             <a class="nav-link" href="{{route('funcionarios.index')}}">Funcionários</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Procedimentos</a>
+                            <a class="nav-link" href="{{route('procedimentos.index')}}">Procedimentos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('agendamentos.index')}}">Agendamentos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Consultas</a>
+                            <a class="nav-link" href="{{route('consultas.index')}}">Consultas</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto ">

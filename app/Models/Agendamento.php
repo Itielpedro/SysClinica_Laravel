@@ -16,6 +16,7 @@ class Agendamento extends Model
         'medico_id',
         'tipo_consulta',
         'retorno',
+        'status'
     ];
 
     public function paciente()
@@ -26,5 +27,10 @@ class Agendamento extends Model
     public function medico()
     {
         return $this->belongsTo(Medico::class, 'medico_id');
+    }
+
+    public function consulta()
+    {
+        return $this->hasOne(Consulta::class);
     }
 }

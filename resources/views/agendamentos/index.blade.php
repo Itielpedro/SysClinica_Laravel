@@ -80,15 +80,22 @@
                 <td>{{ $agendamento->medico->especialidade->nome }}</td>
                 <td>{{ $agendamento->tipo_consulta }}</td>
                 <td>{{ $agendamento->retorno }}</td>
-                <td class="table-danger">Pendente</td>
+                <td class=" {{ $agendamento->status === 'confirmado' ? 'table-success' : 'table-danger' }}">{{$agendamento->status}}
+                    @if($agendamento->status == 'pendente')
+                    <form class="mt-3" action="{{ route('agendamentos.confirmar', $agendamento->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-success d-flex justify-content-center align-items-center">Confirmar Agendamento <i class="fa-regular fa-calendar-check ml-1"></i></button>
+                    </form>
+                    @endif
+                </td>
                 <td>
-                    <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-outline-warning">Editar <i class="fa-regular fa-pen-to-square"></i></a>
+                    <button href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-outline-warning d-flex justify-content-center align-items-center">Editar <i class="fa-regular fa-pen-to-square ml-1"></i></button>
                 </td>
                 <td>
                     <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este agendamento?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                        <button  type="submit" class="btn btn-outline-danger d-flex justify-content-center align-items-center">Excluir <i class="fa-regular fa-trash-can ml-1"></i></button>
                     </form>
                 </td>
             </tr>

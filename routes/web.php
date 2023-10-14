@@ -7,8 +7,8 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SysController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\AgendamentoController;
-
-
+use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\ProcedimentoController;
 
 // Rota Inicial
 Route::get('/', function () {
@@ -67,4 +67,19 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/agendamentos/{agendamento}', [AgendamentoController::class, 'update'])->name('agendamentos.update');
     Route::delete('/agendamentos/{agendamento}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy');
     Route::post('/agendamentos/search', [AgendamentoController::class, 'search'])->name('agendamentos.search');
+    Route::post('/confirmar-agendamento/{id}',  [AgendamentoController::class, 'confirmarAgendamento'])->name('agendamentos.confirmar');
+
+    //Consultas
+    Route::get('/consultas', [ConsultaController::class, 'index'])->name('consultas.index');
+    Route::post('/consultas/search', [ConsultaController::class, 'search'])->name('consultas.search');
+
+    //Procedimentos
+    Route::get('/procedimentos', [ProcedimentoController::class, 'index'])->name('procedimentos.index');
+    Route::get('/procedimentos/create', [ProcedimentoController::class, 'create'])->name('procedimentos.create');
+    Route::post('/procedimentos', [ProcedimentoController::class, 'store'])->name('procedimentos.store');
+    Route::get('/procedimentos/{procedimento}/edit', [ProcedimentoController::class, 'edit'])->name('procedimentos.edit');
+    Route::put('/procedimentos/{procedimento}', [ProcedimentoController::class, 'update'])->name('procedimentos.update');
+    Route::delete('/procedimentos/{procedimento}', [ProcedimentoController::class, 'destroy'])->name('procedimentos.destroy');
+    Route::post('/procedimentos/search', [ProcedimentoController::class, 'search'])->name('procedimentos.search');
+
 });

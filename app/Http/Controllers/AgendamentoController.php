@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Agendamento;
 use App\Models\Paciente;
 use App\Models\Medico;
+use App\Models\Consulta;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AgendamentoController extends Controller
 {
@@ -130,29 +133,29 @@ class AgendamentoController extends Controller
         }
     }
     public function search(Request $request)
-{
-    try {
-        $termo = $request->input('termo');
+    {
+        try {
+            $termo = $request->input('termo');
 
-        $resultados = Agendamento::where(function ($query) use ($termo) {
-            $query->where('data', 'like', "%$termo%")
-                ->orWhereHas('paciente', function ($query) use ($termo) {
-                    $query->where('nome', 'like', "%$termo%");
-                })
-                ->orWhereHas('medico', function ($query) use ($termo) {
-                    $query->where('nome', 'like', "%$termo%")
-                    ->orWhereHas('especialidade', function ($query) use ($termo) {
+            $resultados = Agendamento::where(function ($query) use ($termo) {
+                $query->where('data', 'like', "%$termo%")
+                    ->orWhereHas('paciente', function ($query) use ($termo) {
                         $query->where('nome', 'like', "%$termo%");
-                    });
-                })->orWhere('tipo_consulta', 'like', "%$termo%")
-                ->orWhere('retorno', 'like', "%$termo%");
-        })->orderBy('data')->orderBy('hora')->get();
+                    })
+                    ->orWhereHas('medico', function ($query) use ($termo) {
+                        $query->where('nome', 'like', "%$termo%")
+                            ->orWhereHas('especialidade', function ($query) use ($termo) {
+                                $query->where('nome', 'like', "%$termo%");
+                            });
+                    })->orWhere('tipo_consulta', 'like', "%$termo%")
+                    ->orWhere('retorno', 'like', "%$termo%");
+            })->orderBy('data')->orderBy('hora')->get();
 
-        return view('agendamentos.index', ['agendamentos' => $resultados, 'termo' => $termo]);
-    } catch (\Exception $e) {
-        return redirect()->route('agendamentos.index')->with('error', 'Erro ao realizar a pesquisa de agendamentos: ' . $e->getMessage());
+            return view('agendamentos.index', ['agendamentos' => $resultados, 'termo' => $termo]);
+        } catch (\Exception $e) {
+            return redirect()->route('agendamentos.index')->with('error', 'Erro ao pesquisar agendamento: ' . $e->getMessage());
+        }
     }
-}
 
     private function horarioIndisponivel($data, $medicoId, $pacienteId, $horario)
     {
@@ -176,5 +179,46 @@ class AgendamentoController extends Controller
             ->exists();
 
         return $agendamentoExistente || $agendamentoPacienteExistente;
+    }
+
+    public function confirmarAgendamento($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $agendamento = Agendamento::findOrFail($id);
+
+            $horaAtual = now();
+            $horarioConsulta = Carbon::parse($agendamento->data . ' ' . $agendamento->hora);
+
+            if ($horaAtual < $horarioConsulta) {
+
+                return redirect()->back()->with('error', 'Não é possível confirmar o agendamento antes do horário da consulta.');
+            }
+
+            $agendamento->status = 'confirmado';
+            $agendamento->save();
+            if ($agendamento->status == 'confirmado') {
+
+                $consulta = Consulta::create([
+                    'agendamento_id' => $id,
+                    'data' => $agendamento->data,
+                    'hora' => $agendamento->hora,
+                    'paciente_id' => $agendamento->paciente_id,
+                    'medico_id' => $agendamento->medico_id,
+                    'tipo_consulta' => $agendamento->tipo_consulta,
+                    'retorno' => $agendamento->retorno,
+
+                ]);
+                $consulta->status = 'confirmado';
+                $consulta->save();
+            }
+            DB::commit();
+
+            return back()->with('success', 'Agendamento confirmado com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Erro ao confirmar o agendamento: ' . $e->getMessage());
+        }
     }
 }
