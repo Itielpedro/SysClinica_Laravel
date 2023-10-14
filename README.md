@@ -2,7 +2,6 @@
 
 # SysClinica_Laravel
 Sistema para clínica médica para a matéria de Web 2 ministrada pelo Professor Matusalém Guimarães no IFBA - Valença
-
 # Projeto Laravel - Requisitos e Configuração
 
 ## Equipe
@@ -23,9 +22,7 @@ Sistema para clínica médica para a matéria de Web 2 ministrada pelo Professor
 
 ### 4. Instalar Laravel
    Abra o terminal ou CMD e execute o seguinte comando:
-   ```bash
    composer global require laravel/installer
-
 
 ### 5. Instalar o Xampp ou similar
     Instalar o xampp ou similar(Ele já instala o PHP,Mysql e Servidor Apache).
