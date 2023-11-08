@@ -23,7 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('home')}}">Página Inicial</a>
+                            <a class="nav-link" href="{{route('home')}}">Início</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('especialidades.index')}}">Especialidades</a>
@@ -46,18 +46,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('consultas.index')}}">Consultas</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('prontuarios.index')}}">Prontuários</a>
+                        </li>
                     </ul>
-                    <ul class="navbar-nav ml-auto ">
+                    <ul class="navbar-nav ml-5">
                         @auth
-                        <li class="nav-item mr-2">
-                            <a class="nav-link btn btn-sm btn-outline-primary text-light" href="{{ route('profile.show') }}">
-                                Editar Perfil
+                        <li class="nav-item mr-3">
+                            <a class="nav-link btn btn-sm btn-outline-primary text-light" href="{{ route('profile.show') }}"><i class="fa-solid fa-user-pen"></i>
                             </a>
                         </li>
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-danger nav-link text-light">Logout</button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger nav-link text-light"><i class="fa-solid fa-right-from-bracket"></i></button>
                             </form>
                         </li>
                         @endauth

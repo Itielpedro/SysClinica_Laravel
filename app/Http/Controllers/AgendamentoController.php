@@ -10,6 +10,7 @@ use App\Models\Consulta;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PhpParser\NodeVisitor\FindingVisitor;
+use App\Models\Prontuario;
 
 class AgendamentoController extends Controller
 {
@@ -223,6 +224,13 @@ class AgendamentoController extends Controller
                 ]);
                 $consulta->status = 'confirmado';
                 $consulta->save();
+
+                $prontuario = Prontuario::where('paciente_id', $agendamento->paciente_id)->first();
+                if (!$prontuario) {
+                    $prontuario = Prontuario::create([
+                        'paciente_id' => $agendamento->paciente_id,
+                    ]);
+                }
             }
             DB::commit();
 

@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('prontuarios', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->unsignedInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();
         });
     }

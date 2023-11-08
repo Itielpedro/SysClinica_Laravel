@@ -9,6 +9,7 @@ use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ProcedimentoController;
+use App\Http\Controllers\ProntuarioController;
 
 // Rota Inicial
 Route::get('/', function () {
@@ -82,4 +83,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/procedimentos/{procedimento}', [ProcedimentoController::class, 'destroy'])->name('procedimentos.destroy');
     Route::post('/procedimentos/search', [ProcedimentoController::class, 'search'])->name('procedimentos.search');
 
+    //Prontuario
+    Route::get('/prontuarios', [ProntuarioController::class, 'index'])->name('prontuarios.index');
+    Route::get('/prontuarios/{prontuario}', [ProntuarioController::class, 'show'])->name('prontuarios.show');
+    Route::get('/prontuarios/{prontuario}/edit', [ProntuarioController::class, 'edit'])->name('prontuarios.edit');
+    Route::put('/prontuarios/{prontuario}', [ProntuarioController::class, 'update'])->name('prontuarios.update');
+    Route::delete('/prontuarios/{prontuario}', [ProntuarioController::class, 'destroy'])->name('prontuarios.destroy');
 });

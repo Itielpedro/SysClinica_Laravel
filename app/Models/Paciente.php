@@ -25,4 +25,9 @@ class Paciente extends Model
         'foto',
         'info_medica',
     ];
+
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class);
+    }
 }

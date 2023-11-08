@@ -42,5 +42,4 @@ composer global require laravel/installer
 ### Vídeo da entrega 2
 
     Aqui está um vídeo incrível que mostra nosso projeto em ação:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lOR0myKidUY" title="SYSTEMA PARA CLÍNICA EM LARAVEL - SEGUNDA ENTREGA - 14/10/2023" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+https://youtu.be/lOR0myKidUY

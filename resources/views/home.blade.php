@@ -1,5 +1,3 @@
-<!-- resources/views/dashboard.blade.php -->
-
 @extends('layout')
 
 
@@ -23,8 +21,8 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body  text-left">
-                                    <h3 class="danger">DATA</h3>
-                                    <h4 class="primary">{{ date('d/m/Y', strtotime($dataAtual)) }}</h4>
+                                    <h3 class="primary">DATA</h3>
+                                    <h4 class="danger">{{ date('d/m/Y', strtotime($dataAtual)) }}</h4>
                                 </div>
                                 <div class="align-self-center">
                                     <i class="icon-calendar primary font-large-2"></i>
@@ -41,8 +39,8 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body  text-left">
-                                    <h3 class="danger">MÉDICOS</h3>
-                                    <h4 class="primary">{{ $numeroMedicos }}</h4>
+                                    <h3 class="primary">MÉDICOS</h3>
+                                    <h4 class="danger">{{ $numeroMedicos }}</h4>
                                 </div>
                                 <div class="align-self-center">
                                     <i class="icon-user primary font-large-2"></i>
@@ -59,8 +57,8 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body  text-left">
-                                    <h3 class="danger">PACIENTES</h3>
-                                    <h4 class="primary">{{ $numeroPacientes }}</h4>
+                                    <h3 class="primary">PACIENTES</h3>
+                                    <h4 class="danger">{{ $numeroPacientes }}</h4>
                                 </div>
                                 <div class="align-self-center">
                                     <i class="icon-users primary font-large-2"></i>
@@ -77,8 +75,8 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body  text-left">
-                                    <h3 class="danger">FUNCIONARIOS</h3>
-                                    <h4 class="primary">{{ $numeroFuncionarios }}</h4>
+                                    <h3 class="primary">FUNCIONARIOS</h3>
+                                    <h4 class="danger">{{ $numeroFuncionarios }}</h4>
                                 </div>
                                 <div class="align-self-center">
                                     <i class="icon-users primary font-large-2"></i>
@@ -94,8 +92,8 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body text-left">
-                                    <h3 class="danger">PACIENTES DO DIA {{ date('d/m/Y', strtotime($dataAtual)) }}</h3>
-                                    <h4 class="primary">{{ $numeroPacientesAgendados}}</h4>
+                                    <h3 class="primary">PACIENTES DO DIA {{ date('d/m/Y', strtotime($dataAtual)) }}</h3>
+                                    <h4 class="danger">{{ $numeroPacientesAgendados}}</h4>
                                 </div>
                                 <div class="align-self-center">
                                     <i class="icon-book-open primary font-large-2"></i>
@@ -112,11 +110,11 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body  text-left">
-                                    <h3 class="danger">TOP 3 ESPECIALIDADES DO MÊS</h3>
-                                    <h4 class="primary">
+                                    <h4 class="primary">TOP 3 ESPECIALIDADES DO MÊS</h4>
+                                    <h4 class="danger">
                                         <ul>
                                             @foreach ($maioresEspecialidadesMes as $especialidade)
-                                            <li class="list-group-item">{{ $especialidade->nome }} ({{ $especialidade->agendamentos_count }} agendamentos)</li>
+                                            <li class="list-group-item fs-5">{{ $especialidade->nome }} ({{ $especialidade->agendamentos_count }} agendamentos)</li>
                                             @endforeach
                                         </ul>
                                     </h4>
@@ -136,11 +134,11 @@
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
                                 <div class="media-body  text-left">
-                                    <h3 class="danger">TOP 3 ESPECIALIDADES DO DIA</h3>
-                                    <h4 class="primary">
+                                    <h4 class="primary">TOP 3 ESPECIALIDADES DO DIA</h4>
+                                    <h4 class="danger">
                                         <ul>
                                             @foreach ($maioresEspecialidadesDia as $especialidade)
-                                            <li class="list-group-item">{{ $especialidade->nome }} ({{ $especialidade->medicos->sum('agendamentos_count') }} agendamentos)</li>
+                                            <li class="list-group-item fs-5">{{ $especialidade->nome }} ({{ $especialidade->medicos->sum('agendamentos_count') }} agendamentos)</li>
                                             @endforeach
                                         </ul>
                                     </h4>
