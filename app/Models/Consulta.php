@@ -33,4 +33,10 @@ class Consulta extends Model
     {
         return $this->belongsTo(Agendamento::class);
     }
+
+    public function prontuario()
+    {
+        return $this->belongsTo(Prontuario::class);
+    }
+
 }

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->unsignedInteger('consulta_id')->nullable();
+            $table->foreign('consulta_id')->references('id')->on('consultas');
             $table->timestamps();
         });
     }

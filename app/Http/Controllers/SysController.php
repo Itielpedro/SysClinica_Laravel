@@ -36,6 +36,7 @@ class SysController extends Controller
     private function getMaioresEspecialidadesMes($periodo)
     {
         $dataAtual = now();
+        $mes = date('m');
         $intervalo = $periodo === 'day' ? '1 day' : '1 month';
 
         $maioresEspecialidades = Especialidade::select('id', 'nome')
@@ -50,7 +51,7 @@ class SysController extends Controller
 
     private function getMaioresEspecialidadesDia()
     {
-        
+
         $dataAtual = now();
         $maioresEspecialidadesDia = Especialidade::with(['medicos.agendamentos' => function ($query) use ($dataAtual) {
             $query->whereDate('data', $dataAtual);

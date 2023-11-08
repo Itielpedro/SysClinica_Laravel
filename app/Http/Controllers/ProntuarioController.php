@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Prontuario;
+use App\Models\Paciente;
 
 class ProntuarioController extends Controller
 {
@@ -14,10 +15,10 @@ class ProntuarioController extends Controller
         return view('prontuarios.index', compact('prontuarios'));
     }
 
-    public function show($pacienteId)
-    {
-        $prontuario = Prontuario::where('paciente_id', $pacienteId)->first();
+    public function show($id)
+{
+    $prontuario = Prontuario::with('consultas')->find($id);
 
-        return view('prontuarios.show', compact('prontuario'));
-    }
+    return view('prontuarios.show', compact('prontuario'));
+}
 }

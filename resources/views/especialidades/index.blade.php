@@ -42,7 +42,7 @@
     </div>
     <ul class="nav nav-pills nav-fill" id="especialidadesTabs">
         @foreach ($especialidades as $especialidade)
-        <li class="nav-item">
+        <li class="nav-item ">
             <a class="nav-link" id="especialidade{{$especialidade->id}}" data-toggle="tab" href="#especialidadeTab{{$especialidade->id}}" data-especialidade-id="{{$especialidade->id}}">
                 {{ $especialidade->nome }}
             </a>

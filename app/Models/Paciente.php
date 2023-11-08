@@ -30,4 +30,9 @@ class Paciente extends Model
     {
         return $this->hasMany(Consulta::class);
     }
+
+    public function prontuario()
+    {
+        return $this->hasOne(Prontuario::class);
+    }
 }
