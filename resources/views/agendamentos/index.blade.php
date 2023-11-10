@@ -80,12 +80,14 @@
                 <td>{{ $agendamento->medico->especialidade->nome }}</td>
                 <td>{{ $agendamento->tipo_consulta }}</td>
                 <td>{{ $agendamento->retorno }}</td>
-                <td class=" {{ $agendamento->status === 'confirmado' ? 'table-success' : 'table-danger' }}">{{$agendamento->status}}
+                <td class=" {{ $agendamento->status === 'confirmado' ? 'table-success' : 'table-danger' }}">
                     @if($agendamento->status == 'pendente')
                     <form class="mt-3" action="{{ route('agendamentos.confirmar', $agendamento->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-success d-flex justify-content-center align-items-center">Confirmar Agendamento <i class="fa-regular fa-calendar-check ml-1"></i></button>
                     </form>
+                    @else
+                        <span class="text-success">Consulta Realizada</span>
                     @endif
                 </td>
                 <td>

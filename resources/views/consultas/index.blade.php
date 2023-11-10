@@ -65,7 +65,7 @@
                 <th>Especialidade</th>
                 <th>Tipo de Consulta</th>
                 <th>É Retorno?</th>
-                <th>Prontuário</th>
+                <th>Atendimento</th>
             </tr>
         </thead>
         <tbody>
@@ -78,7 +78,13 @@
                 <td>{{ $consulta->medico->especialidade->nome }}</td>
                 <td>{{ $consulta->tipo_consulta }}</td>
                 <td>{{ $consulta->retorno }}</td>
-                <td class="col-md-2"> <a href="" class="btn btn-outline-secondary">Prontuário <i class="fa-solid fa-clipboard-user"></i></a>
+                <td class=" {{ $consulta->status === 'confirmado' ? 'table-success' : 'table-danger' }}">
+                    @if($consulta->status === 'pendente')
+                        <a href="{{ route('atendimentos.create', $consulta->id) }}" class="btn btn-outline-secondary d-flex justify-content-center align-items-center"> Atendimento<i class="fa-solid fa-clipboard-user ml-1"></i>
+                        </a>
+                    @else
+                        <span class="text-success">Atendimento Realizado</span>
+                    @endif
                 </td>
             </tr>
             @endforeach

@@ -1,4 +1,4 @@
-<!-- resources/views/prontuarios/show.blade.php -->
+
 
 @extends('layout')
 
@@ -54,27 +54,69 @@
         </div>
         <div class="tab-pane fade" id="consultas" role="tabpanel" aria-labelledby="consultas-tab">
             <h2 class="mt-3">Listagem de Consultas</h2>
+
             <table class="table text-center mt-5">
                 <thead>
                     <tr>
                         <th>Data da Consulta</th>
                         <th>Hora da Consulta</th>
-                        <th>Procedimentos</th>
                         <th>Médico</th>
+                        <th>Detalhes</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     @if(count($prontuario->consultas) > 0)
-
                     @foreach($prontuario->consultas as $consulta)
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($consulta->data)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($consulta->hora)->format('H:i:s') }}</td>
-                        <td>{{ $consulta->procedimentos }}</td>
                         <td>{{ $consulta->medico->nome }}</td>
-                     </tr>
+                        <td>
+                            <button class="btn btn-outline-primary d-flex justify-content-center align-items-center" data-toggle="modal" data-target="#detalhesModal{{ $consulta->id }}">
+                                Detalhes <i class="fa-solid fa-circle-info ml-1"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="detalhesModal{{ $consulta->id }}" tabindex="-1" aria-labelledby="detalhesModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="detalhesModalLabel">Detalhes da Consulta</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Fechar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @foreach ($consulta->atendimentos as $atendimento)
+                                    <div class="form-group">
+                                        <label for="medico_id">Procedimento</label>
+                                        <input type="text" class="form-control" id="procedimento" name="procedimento" value="{{ $atendimento->procedimento->descricao }}" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="analise">Análise do Paciente</label>
+                                        <textarea class="form-control " id="analise" name="analise" rows="4" readonly >{{ $atendimento->analise}}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="diagnostico">Diagnóstico</label>
+                                        <textarea class="form-control" id="diagnostico" name="diagnostico" rows="4" readonly>{{ $atendimento->diagnostico }}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="receituario">Receituário</label>
+                                        <textarea class="form-control" id="receituario" name="receituario" rows="4" readonly>{{ $atendimento->receituario }}</textarea>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Fechar <i class="fa-solid fa-circle-xmark"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
+
                     @else
                     <p>Nenhuma consulta realizada.</p>
                     @endif

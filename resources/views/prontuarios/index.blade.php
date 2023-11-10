@@ -21,8 +21,7 @@
                         <th>Nome Paciente</th>
                         <th>CPF do Paciente</th>
                         <th>Detalhes</th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -32,16 +31,6 @@
                             <td>{{ $prontuario->paciente->cpf }}</td>
                             <td>
                                 <a href="{{ route('prontuarios.show', $prontuario->id) }}" class="btn btn-outline-primary">Detalhes <i class="fa-solid fa-circle-info"></i></a>
-                            </td>
-                            <td>
-                                <a href="{{ route('prontuarios.edit', $prontuario->id) }}" class="btn btn-outline-warning">Editar <i class="fa-regular fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <form action="{{ route('prontuarios.destroy', $prontuario->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Tem certeza que deseja excluir este prontuário?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger">Excluir <i class="fa-regular fa-trash-can"></i></button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach

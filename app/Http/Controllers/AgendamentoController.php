@@ -222,19 +222,14 @@ class AgendamentoController extends Controller
                     'retorno' => $agendamento->retorno,
 
                 ]);
-                $consulta->status = 'confirmado';
                 $consulta->save();
 
-                $prontuario = Prontuario::where('paciente_id', $agendamento->paciente_id)->first();
-                if (!$prontuario) {
-                    $prontuario = Prontuario::create([
-                        'paciente_id' => $agendamento->paciente_id,
-                    ]);
-                }
+                
             }
             DB::commit();
 
-            return back()->with('success', 'Agendamento confirmado com sucesso!');
+            return redirect()->route('consultas.index')->with('success', 'Agendamento confirmado com sucesso!');
+
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Erro ao confirmar o agendamento: ' . $e->getMessage());

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('agendamento_id')->unique();
             $table->string('tipo_consulta');
             $table->enum('retorno', ['sim', 'nao']);
-            $table->string('status')->default('confirmado');
+            $table->string('status')->default('pendente');
             $table->timestamps();
 
             $table->foreign('agendamento_id')->references('id')->on('agendamentos')->onDelete('cascade');

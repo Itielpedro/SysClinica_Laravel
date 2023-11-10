@@ -10,6 +10,7 @@ class ConsultaController extends Controller
 {
     public function index()
     {
+        
         try {
             $consultas = Consulta::with(['paciente', 'medico'])
                 ->orderBy('data', 'asc')->orderBy('hora', 'asc')

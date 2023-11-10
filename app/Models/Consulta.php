@@ -39,4 +39,9 @@ class Consulta extends Model
         return $this->belongsTo(Prontuario::class);
     }
 
+    public function atendimentos()
+    {
+        return $this->hasMany(Atendimento::class);
+    }
+
 }
