@@ -33,4 +33,9 @@ class Agendamento extends Model
     {
         return $this->hasOne(Consulta::class);
     }
+    
+    public function especialidade()
+    {
+        return $this->belongsTo(Especialidade::class);
+    }
 }

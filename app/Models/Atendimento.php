@@ -20,6 +20,11 @@ class Atendimento extends Model
 
     public function procedimento()
     {
-        return $this->belongsTo(Procedimento::class);
+        return $this->belongsTo(Procedimento::class, 'procedimento_id');
+    }
+
+    public function consulta()
+    {
+        return $this->belongsTo(Consulta::class, 'consulta_id');
     }
 }

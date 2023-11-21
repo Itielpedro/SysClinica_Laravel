@@ -13,7 +13,7 @@ class Especialidade extends Model
 
     public function medicos()
     {
-        return $this->hasMany(Medico::class, 'especialidade_id');
+        return $this->hasMany(Medico::class);
     }
 
     public function agendamentos()

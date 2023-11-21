@@ -63,6 +63,7 @@
                 <th>CPF</th>
                 <th>Cargo</th>
                 <th>Detalhes</th>
+                <th>Ficha de Cadastro</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
@@ -72,23 +73,26 @@
             <tr>
                 <td class="col-1">
                     <div>
-                        <img src="{{ Storage::url($funcionario->foto) }}" class="img-fluid card-img-top" alt="Foto do Funcionário" height="80" width="80">
+                        <img src="{{ Storage::url($funcionario->foto) }}" class="img-fluid card-img-top" alt="Foto do Funcionário" >
                     </div>
                 </td>
                 <td>{{ $funcionario->nome }}</td>
                 <td>{{ $funcionario->cpf }}</td>
                 <td>{{ $funcionario->cargo }}</td>
-                <td>
-                    <a href="{{ route('funcionarios.show', $funcionario->id) }}" class="btn btn-outline-info">Detalhes <i class="fa-solid fa-circle-info"></i></a>
+                <td class="col-md-1">
+                    <a href="{{ route('funcionarios.show', $funcionario->id) }}" class="btn btn-outline-info btn-block"><i class="fa-solid fa-circle-info"></i></a>
                 </td>
-                <td>
-                    <a href="{{ route('funcionarios.edit', $funcionario->id) }}" class="btn btn-outline-warning">Editar <i class="fa-regular fa-pen-to-square"></i></a>
+                <td class="col-md-1">
+                    <a href="{{ route('relatorios.funcionarios', ['id' => $funcionario->id]) }}" class="btn btn-outline-primary btn-block" target="_blank"><i class="fa-solid fa-print"></i></a>
                 </td>
-                <td>
+                <td class="col-md-1">
+                    <a href="{{ route('funcionarios.edit', $funcionario->id) }}" class="btn btn-outline-warning btn-block"><i class="fa-regular fa-pen-to-square"></i></a>
+                </td>
+                <td class="col-md-1">
                     <form action="{{ route('funcionarios.destroy', $funcionario->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este funcionário?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                        <button type="submit" class="btn btn-outline-danger btn-block"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </td>
             </tr>

@@ -11,6 +11,7 @@ use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ProcedimentoController;
 use App\Http\Controllers\ProntuarioController;
 use App\Http\Controllers\AtendimentoController;
+use App\Http\Controllers\RelatorioController;
 
 // Rota Inicial
 Route::get('/', function () {
@@ -94,4 +95,14 @@ Route::middleware(['auth'])->group(function () {
     //Atendimentos
     Route::get('/atendimentos/create/{id}', [AtendimentoController::class, 'create'])->name('atendimentos.create');
     Route::post('/atendimentos/store/{consulta}', [AtendimentoController::class, 'store'])->name('atendimentos.store');
+
+    //Relatórios
+    Route::get('/relatorios/paciente/{id}', [RelatorioController::class, 'fichaCadastroPaciente'])->name('relatorios.fichacadastro');
+    Route::get('/relatorios/aniversariantes', [RelatorioController::class,'aniversariantes'])->name('relatorios.aniversariantes');
+    Route::get('/relatorios/funcionario/{id}', [RelatorioController::class, 'funcionario'])->name('relatorios.funcionarios');
+    Route::get('/relatorios/prontuario/{id}', [RelatorioController::class, 'prontuario'])->name('relatorios.prontuarios');
+    Route::get('/relatorio/agendamentos', [RelatorioController::class, 'agendamentos'])->name('relatorios.agendamentos');
+    Route::get('/relatorio/reciboConsulta/{id}', [RelatorioController::class, 'reciboConsulta'])->name('relatorios.reciboConsulta');
+    Route::post('/relatorios/financeiro', [RelatorioController::class, 'relatorioFinanceiro'])->name('relatorios.financeiro');
+
 });

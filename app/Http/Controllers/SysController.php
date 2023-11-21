@@ -17,7 +17,7 @@ class SysController extends Controller
     public function index()
     {
         $maioresEspecialidadesDia = $this->getMaioresEspecialidadesDia();
-            $maioresEspecialidadesMes = $this->getMaioresEspecialidadesMes('month');
+        $maioresEspecialidadesMes = $this->getMaioresEspecialidadesMes('month');
 
         $numeroMedicos = Medico::count();
 
@@ -34,34 +34,37 @@ class SysController extends Controller
     }
 
     private function getMaioresEspecialidadesMes($periodo)
-    {
-        $dataAtual = now();
-        $mes = date('m');
-        $intervalo = $periodo === 'day' ? '1 day' : '1 month';
+{
+    $maioresEspecialidadesMes = Especialidade::select('especialidades.id', 'especialidades.nome')
+        ->withCount(['medicos as agendamentos_count' => function ($query) {
+            $query->join('agendamentos', 'medicos.id', '=', 'agendamentos.medico_id')
+                ->whereBetween('agendamentos.data', [
+                    now()->startOfMonth(),
+                    now()->endOfMonth(),
+                ]);
+        }])
+        ->orderByDesc('agendamentos_count')
+        ->take(3)
+        ->get();
 
-        $maioresEspecialidades = Especialidade::select('id', 'nome')
-            ->withCount('agendamentos')
-            ->orderByDesc('agendamentos_count')
-            ->take(3)
-            ->get();
-
-        return $maioresEspecialidades;
-    }
-
-
-    private function getMaioresEspecialidadesDia()
-    {
-
-        $dataAtual = now();
-        $maioresEspecialidadesDia = Especialidade::with(['medicos.agendamentos' => function ($query) use ($dataAtual) {
-            $query->whereDate('data', $dataAtual);
-        }])->get();
-
-        $maioresEspecialidadesDia = $maioresEspecialidadesDia->sortByDesc(function ($especialidade) {
-            return $especialidade->medicos->sum('agendamentos_count');
-        })->take(3);
-        return $maioresEspecialidadesDia;
-    }
+    return $maioresEspecialidadesMes;
+}
 
 
+
+private function getMaioresEspecialidadesDia()
+{
+    $dataAtual = now()->format('Y-m-d');
+
+    $maioresEspecialidadesDia = Especialidade::select('especialidades.id', 'especialidades.nome')
+        ->withCount(['medicos as agendamentos_count' => function ($query) use ($dataAtual) {
+            $query->join('agendamentos', 'medicos.id', '=', 'agendamentos.medico_id')
+                ->whereDate('agendamentos.data', $dataAtual);
+        }])
+        ->orderByDesc('agendamentos_count')
+        ->take(3)
+        ->get();
+
+    return $maioresEspecialidadesDia;
+}
 }

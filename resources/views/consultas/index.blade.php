@@ -28,9 +28,11 @@
     <a href="{{ route('consultas.index') }}" class="btn btn-outline-secondary mb-3">Limpar Pesquisa <i class="fa-regular fa-trash-can"></i></a>
     @elseif(!empty($consultas))
     <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalBuscaConsultas">Pesquisar Consultas <i class="fa-solid fa-magnifying-glass"></i></button>
+    <button type="button" class="btn btn-outline-dark col-md-3 mb-3" data-toggle="modal" data-target="#relatorioModal">Relatório Financeiro <i class="fa-solid fa-print"></i></button>
     @endif
 
-    <!-- Modal de Busca -->
+
+    <!-- Modal de Busca Consultas-->
     <div class="modal fade" id="modalBuscaConsultas" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -54,6 +56,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="relatorioModal" tabindex="-1" role="dialog" aria-labelledby="relatorioModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="relatorioModalLabel">Parâmetros do Relatório</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('relatorios.financeiro') }}" method="post" target="_blank">
+                        @csrf
+                        <div class="form-group">
+                            <label for="data_inicial">Data Inicial:</label>
+                            <input type="date" class="form-control" name="data_inicial" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="data_final">Data Final:</label>
+                            <input type="date" class="form-control" name="data_final" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Relatório <i class="fa-solid fa-print" formtarget="_blank"></i></button></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @if(!empty($consultas) && count($consultas) > 0)
     <table class="table text-center fs-5">
         <thead>
@@ -66,6 +96,7 @@
                 <th>Tipo de Consulta</th>
                 <th>É Retorno?</th>
                 <th>Atendimento</th>
+                <th>Recibo</th>
             </tr>
         </thead>
         <tbody>
@@ -80,11 +111,16 @@
                 <td>{{ $consulta->retorno }}</td>
                 <td class=" {{ $consulta->status === 'confirmado' ? 'table-success' : 'table-danger' }}">
                     @if($consulta->status === 'pendente')
-                        <a href="{{ route('atendimentos.create', $consulta->id) }}" class="btn btn-outline-secondary d-flex justify-content-center align-items-center"> Atendimento<i class="fa-solid fa-clipboard-user ml-1"></i>
-                        </a>
+                    <a href="{{ route('atendimentos.create', $consulta->id) }}" class="btn btn-outline-secondary d-flex justify-content-center align-items-center"><i class="fa-solid fa-clipboard-user ml-1"></i>
+                    </a>
                     @else
-                        <span class="text-success">Atendimento Realizado</span>
+                    <span class="text-success">Atendimento Realizado</span>
                     @endif
+                </td>
+                <td class="col-md-2">
+                    <a href="{{ route('relatorios.reciboConsulta', $consulta->id) }}" class="btn btn-outline-primary d-flex justify-content-center align-items-center" target="_blank">
+                        <i class="fa-solid fa-receipt btn-block"></i>
+                    </a>
                 </td>
             </tr>
             @endforeach

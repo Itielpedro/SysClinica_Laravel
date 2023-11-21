@@ -133,14 +133,15 @@
                     <div class="card-content">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between">
-                                <div class="media-body  text-left">
+                                <div class="media-body text-left">
                                     <h4 class="primary">TOP 3 ESPECIALIDADES DO DIA</h4>
                                     <h4 class="danger">
                                         <ul>
                                             @foreach ($maioresEspecialidadesDia as $especialidade)
-                                            <li class="list-group-item fs-5">{{ $especialidade->nome }} ({{ $especialidade->medicos->sum('agendamentos_count') }} agendamentos)</li>
+                                            <li class="list-group-item fs-5">{{ $especialidade->nome }} ({{ $especialidade->agendamentos_count ?? 0 }} agendamentos)</li>
                                             @endforeach
                                         </ul>
+
                                     </h4>
                                 </div>
                                 <div class="align-self-center">
@@ -151,6 +152,8 @@
                     </div>
                 </div>
             </div>
+
+
 
 
             @endsection

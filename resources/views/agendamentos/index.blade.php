@@ -28,7 +28,11 @@
     <a href="{{ route('agendamentos.index') }}" class="btn btn-outline-secondary mb-3">Limpar Pesquisa <i class="fa-regular fa-trash-can"></i></a>
     @elseif(!empty($agendamentos))
     <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalBuscaAgendamentos">Pesquisar Agendamentos <i class="fa-solid fa-magnifying-glass"></i></button>
+
+    <button type="button" class="btn btn-outline-dark col-md-3 mb-3" data-toggle="modal" data-target="#relatorioModal">Relatório <i class="fa-solid fa-print"></i></button>
     @endif
+
+
 
     <!-- Modal de Busca -->
     <div class="modal fade" id="modalBuscaAgendamentos" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -47,12 +51,54 @@
                             <label for="termo">Termo de Busca</label>
                             <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite o termo de busca (Data, Paciente, Médico, Especialidade, Tipo de Consulta, Retorno)">
                         </div>
-                        <button type="submit" class="btn btn-outline-primary">Buscar <i class="fa-solid fa-magnifying-glass"></i></button>
+                        <a target="_blank" class="btn btn-outline-primary">Buscar <i class="fa-solid fa-magnifying-glass"></i></a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal de Relatório -->
+<div class="modal fade" id="relatorioModal" tabindex="-1" role="dialog" aria-labelledby="relatorioModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="relatorioModalLabel">Relatório</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('relatorios.agendamentos') }}" method="get" target="_blank">
+                    <div class="form-group">
+                        <label for="data_escolhida">Data:</label>
+                        <input type="date" name="data_escolhida" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="especialidade_id">Especialidade:</label>
+                        <select name="especialidade_id" class="form-control">
+                        <option></option>
+                            @foreach($especialidades as $especialidade)
+                                <option value="{{ $especialidade->id }}">{{ $especialidade->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="medico_id">Médico:</label>
+                        <select name="medico_id" class="form-control">
+                        <option></option>
+                            @foreach($medicos as $medico)
+                                <option value="{{ $medico->id }}">{{ $medico->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">Relatório <i class="fa-solid fa-print" formtarget="_blank"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     @if(!empty($agendamentos) && count($agendamentos) > 0)
     <table class="table text-center fs-5">
@@ -87,7 +133,7 @@
                         <button type="submit" class="btn btn-outline-success d-flex justify-content-center align-items-center">Confirmar Agendamento <i class="fa-regular fa-calendar-check ml-1"></i></button>
                     </form>
                     @else
-                        <span class="text-success">Consulta Realizada</span>
+                    <span class="text-success">Consulta Realizada</span>
                     @endif
                 </td>
                 <td>

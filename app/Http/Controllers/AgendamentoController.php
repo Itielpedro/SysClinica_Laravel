@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PhpParser\NodeVisitor\FindingVisitor;
 use App\Models\Prontuario;
+use App\Models\Especialidade;
 
 class AgendamentoController extends Controller
 {
@@ -20,8 +21,10 @@ class AgendamentoController extends Controller
             $agendamentos = Agendamento::with(['paciente', 'medico'])
                 ->orderBy('data', 'asc')->orderBy('hora', 'asc')
                 ->get();
+            $especialidades = Especialidade::all(); // Substitua Especialidade pelo seu modelo real
+            $medicos = Medico::all(); // Substitua Medico pelo seu modelo real
 
-            return view('agendamentos.index', compact('agendamentos'));
+            return view('agendamentos.index', compact('agendamentos','especialidades', 'medicos'));
         } catch (\Exception $e) {
             return redirect()->route('agendamentos.index')->with('error', 'Erro ao obter os agendamentos.');
         }
@@ -223,13 +226,10 @@ class AgendamentoController extends Controller
 
                 ]);
                 $consulta->save();
-
-                
             }
             DB::commit();
 
             return redirect()->route('consultas.index')->with('success', 'Agendamento confirmado com sucesso!');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Erro ao confirmar o agendamento: ' . $e->getMessage());

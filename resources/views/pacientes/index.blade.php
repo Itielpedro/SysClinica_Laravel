@@ -25,6 +25,9 @@
     <a href="{{ route('pacientes.index') }}" class="btn btn-secondary mb-3">Limpar Pesquisa <i class="fa-regular fa-trash-can"></i></a>
     @elseif(!empty($pacientes))
     <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalBuscaPacientes">Pesquisar Pacientes <i class="fa-solid fa-magnifying-glass"></i></button>
+
+    <a href="{{ route('relatorios.aniversariantes') }}" class="btn btn-outline-dark col-md-3 mb-3" target="_blank">Aniversariantes do Mês <i class="fa-solid fa-cake-candles"></i></a>
+
     @endif
 
     <div class="modal fade" id="modalBuscaPacientes" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -37,7 +40,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body">
                     <form action="{{ route('pacientes.search') }}" method="POST">
                         @csrf
@@ -52,8 +55,13 @@
         </div>
     </div>
 
+
+
+
+
+
     @if(!empty($pacientes) && count($pacientes) > 0)
-    <table class="table text-center fs-5">
+    <table class="table text-center fs-5 col-md-12">
         <thead>
             <tr>
                 <th>Foto</th>
@@ -62,6 +70,7 @@
                 <th>Informações Médicas</th>
                 <th>Prontuário</th>
                 <th>Detalhes</th>
+                <th>Ficha de Cadastro</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
@@ -76,21 +85,31 @@
                 </td>
                 <td>{{ $paciente->nome }}</td>
                 <td>{{ $paciente->cpf }}</td>
-                <td>{{ $paciente->info_medica }}</td>
-                <td class="col-md-2"> <a href="" class="btn btn-outline-secondary">Prontuário <i class="fa-solid fa-clipboard-user"></i></a></td>
-                <td class="col-md-2">
-                    <a href="{{ route('pacientes.show', $paciente->id) }}" class="btn btn-outline-info">Detalhes <i class="fa-solid fa-circle-info"></i></a>
+                <td>{{$paciente->info_medica}}</td>
+                <td class="col-md-1">
+                    @if ($paciente->prontuario)
+                    <a href="{{ route('prontuarios.show', ['prontuario' => $paciente->prontuario->id]) }}" class="btn btn-outline-secondary btn-block"><i class="fa-solid fa-clipboard-user"></i></a>
+                    @else
+                    <span class="text-muted">Sem prontuário</span>
+                    @endif
                 </td>
-                <td class="col-md-2">
-                    <a href="{{ route('pacientes.edit', $paciente->id) }}" class="btn btn-outline-warning">Editar <i class="fa-regular fa-pen-to-square"></i></a>
+                <td class="col-md-1">
+                    <a href="{{ route('pacientes.show', $paciente->id) }}" class="btn btn-outline-info btn-block"><i class="fa-solid fa-circle-info"></i></a>
                 </td>
-                <td class="col-md-2">
+                <td class="col-md-1">
+                    <a href="{{ route('relatorios.fichacadastro', ['id' => $paciente->id]) }}" class="btn btn-outline-primary btn-block" target="_blank"><i class="fa-solid fa-print" ></i></a>
+                </td>
+                <td class="col-md-1">
+                    <a href="{{ route('pacientes.edit', $paciente->id) }}" class="btn btn-outline-warning btn-block"><i class="fa-regular fa-pen-to-square"></i></a>
+                </td>
+                <td class="col-md-1">
                     <form action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este paciente?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                        <button type="submit" class="btn btn-outline-danger btn-block"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </td>
+
             </tr>
             @endforeach
         </tbody>
