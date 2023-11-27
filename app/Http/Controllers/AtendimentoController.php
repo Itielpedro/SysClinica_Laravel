@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Paciente;
-use App\Models\Medico;
 use App\Models\Procedimento;
 use App\Models\Consulta;
 use App\Models\Atendimento;

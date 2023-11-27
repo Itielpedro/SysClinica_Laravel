@@ -72,13 +72,13 @@
                 <td>R$ {{ $procedimento->valor }}</td>
                 <td>{{ $procedimento->observacoes }}</td>
                 <td>
-                    <a href="{{ route('procedimentos.edit', $procedimento->id) }}" class="btn btn-outline-warning">Editar <i class="fa-regular fa-pen-to-square"></i></a>
+                    <a href="{{ route('procedimentos.edit', $procedimento->id) }}" class="btn btn-outline-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                 </td>
                 <td>
                     <form action="{{ route('procedimentos.destroy', $procedimento->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Tem certeza que deseja excluir este procedimento?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </td>
             </tr>

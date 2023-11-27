@@ -8,7 +8,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{route('home')}}">
-                        Página Inicial
+                        Inicio
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -35,6 +35,8 @@
                     <x-nav-link href="{{route('agendamentos.index')}}">Agendamentos</x-nav-link>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{route('consultas.index')}}">Consultas</x-nav-link>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{route('prontuarios.index')}}">Prontuarios</x-nav-link>
                     <x-nav-link href="">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

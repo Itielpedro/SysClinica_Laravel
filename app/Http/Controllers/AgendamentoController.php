@@ -9,8 +9,6 @@ use App\Models\Medico;
 use App\Models\Consulta;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use PhpParser\NodeVisitor\FindingVisitor;
-use App\Models\Prontuario;
 use App\Models\Especialidade;
 
 class AgendamentoController extends Controller

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\Funcionario;
 use App\Models\Prontuario;
-use PDF417;
 use TCPDF;
 use App\Models\Agendamento;
 use App\Models\Consulta;

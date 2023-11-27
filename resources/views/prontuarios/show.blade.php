@@ -73,7 +73,7 @@
                         <td>{{ \Carbon\Carbon::parse($consulta->hora)->format('H:i:s') }}</td>
                         <td>{{ $consulta->medico->nome }}</td>
                         <td class="col-md-2">
-                            <button class="btn btn-outline-primary " data-toggle="modal" data-target="#detalhesModal{{ $consulta->id }}"><i class="fa-solid fa-circle-info ml-1"></i>
+                            <button class="btn btn-outline-info" data-toggle="modal" data-target="#detalhesModal{{ $consulta->id }}"><i class="fa-solid fa-circle-info ml-1"></i>
                             </button>
                         </td>
                     </tr>

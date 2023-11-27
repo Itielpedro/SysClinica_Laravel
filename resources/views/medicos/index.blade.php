@@ -71,16 +71,16 @@
                 <td>{{ $medico->crm }}</td>
                 <td>{{ $medico->especialidade->nome }}</td>
                 <td class="col-md-2">
-                    <a href="{{ route('medicos.show', $medico->id) }}" class="btn btn-outline-info">Detalhes <i class="fa-solid fa-circle-info"></i></a>
+                    <a href="{{ route('medicos.show', $medico->id) }}" class="btn btn-outline-info "><i class="fa-solid fa-circle-info"></i></a>
                 </td>
                 <td class="col-md-2">
-                    <a href="{{ route('medicos.edit', $medico->id) }}" class="btn btn-outline-warning">Editar <i class="fa-regular fa-pen-to-square"></i></a>
+                    <a href="{{ route('medicos.edit', $medico->id) }}" class="btn btn-outline-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                 </td>
                 <td class="col-md-2">
                     <form action="{{ route('medicos.destroy', $medico->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este médico?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </td>
             </tr>

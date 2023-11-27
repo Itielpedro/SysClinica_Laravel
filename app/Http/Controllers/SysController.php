@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Medico;
 use App\Models\Paciente;
 use App\Models\Especialidade;
 use App\Models\Funcionario;
 use App\Models\Agendamento;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
+
 
 class SysController extends Controller
 {

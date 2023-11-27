@@ -30,7 +30,7 @@
                 <td>{{ $prontuario->paciente->nome }}</td>
                 <td>{{ $prontuario->paciente->cpf }}</td>
                 <td class="col-md-1 text-center">
-                    <a href="{{ route('prontuarios.show', $prontuario->id) }}" class="btn btn-outline-primary"><i class="fa-solid fa-circle-info"></i></a>
+                    <a href="{{ route('prontuarios.show', $prontuario->id) }}" class="btn btn-outline-info"><i class="fa-solid fa-circle-info"></i></a>
                 </td>
                 <td class="col-md-1">
                     <a target="_blank" href="{{ route('relatorios.prontuarios', ['id' => $prontuario->id]) }}" class="btn btn-outline-primary btn-block"><i class="fa-solid fa-print"></i></a>

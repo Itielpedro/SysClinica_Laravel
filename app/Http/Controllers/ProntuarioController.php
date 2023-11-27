@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Prontuario;
-use App\Models\Paciente;
 
 class ProntuarioController extends Controller
 {
